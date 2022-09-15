@@ -1,21 +1,42 @@
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { Button, InputContainer, InputField, InputLabel } from '../../utils/styles';
 import styles from './index.module.scss';
 
 export const Loginform = () => {
-	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
+
+	const onSubmit = (data: any) => {
+		console.log(data);
 	};
 
+	console.log(errors);
+
 	return (
-		<form className={styles.form} onSubmit={onSubmit}>
+		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<InputContainer>
 				<InputLabel htmlFor="email">Email</InputLabel>
-				<InputField type="email" id="email" />
+				<InputField
+					type="email"
+					id="email"
+					{...register('email', {
+						required: 'Email is required',
+					})}
+				/>
 			</InputContainer>
 			<InputContainer className={styles.loginFormPassword}>
 				<InputLabel htmlFor="password">Password</InputLabel>
-				<InputField type="password" id="password" />
+				<InputField
+					type="password"
+					id="password"
+					{...register('password', {
+						required: 'Password is required',
+					})}
+				/>
 			</InputContainer>
 			<Button className={styles.button}>Login</Button>
 			<div className={styles.footerText}>
