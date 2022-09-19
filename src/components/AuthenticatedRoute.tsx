@@ -1,32 +1,6 @@
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { getAuthUser } from '../utils/api';
-import { User } from '../utils/types';
-
-const useAuth = () => {
-	const [user, setUser] = useState<User | undefined>();
-	const [loading, setLoading] = useState(true);
-	const controller = new AbortController();
-
-	useEffect(() => {
-		setLoading(true);
-		getAuthUser()
-			.then(({ data }) => {
-				setUser(data);
-				setTimeout(() => setLoading(false), 1000);
-			})
-			.catch((err) => {
-				console.log(err);
-				setTimeout(() => setLoading(false), 1000);
-			});
-
-		return () => {
-			controller.abort();
-		};
-	}, []);
-
-	return { loading, user };
-};
+import { useAuth } from '../hooks/useAuth';
 
 export const AuthenticatedRoute: FC<PropsWithChildren> = ({ children }) => {
 	const location = useLocation();
