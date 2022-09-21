@@ -26,3 +26,17 @@ form {
 .loginFormPassword {
 	margin: 8px 0;
 }
+
+.createConversationForm {
+	width: 100%;
+}
+
+.message {
+	margin: 16px 0;
+}
+
+.submitButton {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
